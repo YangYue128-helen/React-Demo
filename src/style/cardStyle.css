@@ -1,0 +1,13 @@
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30vh; 
+}
+.logo {
+    width: 48px;
+    height: 48px;
+  }
+.black-navbar {
+    background-color: black;
+}
