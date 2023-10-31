@@ -1,14 +1,10 @@
 import React, { Component, Fragment } from "react";
 import "../../style/style.css";
 import TodoItem from "./TodoItem";
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
+
 import store from "../../store";
 import { getInputChangeAction, getAddItemAction, getDeleteItemAction, getLoadItemAction } from "../../store/actionCreators";
+import TodoListUI from './TodoListUI';
 import axios from "axios";
 
 class TodoList extends Component {
@@ -19,62 +15,27 @@ class TodoList extends Component {
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleClick = this.handleClick.bind(this);
       this.handleItemDelete = this.handleItemDelete.bind(this);
-      this.renderRow = this.renderRow.bind(this);
       this.handleStoreChange = this.handleStoreChange.bind(this);
       store.subscribe(this.handleStoreChange);
     }
 
     render () {
       return (
-        <div style={{marginTop: '10px', marginLeft: '10px'}} >
-          
-          <Stack spacing={4} direction="row">
-            <TextField 
-              id="outlined-basic" 
-              label="todo info" 
-              variant="outlined" 
-              style={{width: 300}} 
-              value={this.state.inputValue}
-              onChange={this.handleInputChange} />
-            <Button variant="contained" onClick={this.handleClick}>Add todo item</Button>
-          </Stack>
-          <div style={{marginTop: '10px'}}>
-            <List>
-              {this.renderRow()}
-            </List>
-          </div>
-          {/* <div>
-              <label htmlFor="insertArea">Type here</label>
-              <input 
-                  id="insertArea"
-                  className='input'
-                  value={this.state.inputValue}
-                  onChange={this.handleInputChange}
-                  ref={(input) => {this.input = input}}
-              />
-              <button onClick={this.handleClick}>submit</button>
-          </div>
-          <ul ref={(ul) => {this.ul = ul}}>
-              {this.getTodoItem()}
-          </ul> */}
-        </div>
-      );
+        <TodoListUI 
+          inputValue={this.state.inputValue}
+          list={this.state.list}
+          handleInputChange={this.handleInputChange}
+          handleClick={this.handleClick}
+          handleItemDelete={this.handleItemDelete}
+        ></TodoListUI>
+      )
     }
 
     handleStoreChange() {
       this.setState(store.getState);
     }
 
-    renderRow() {
-      return this.state.list.map((item, index) => {
-        console.log(index);
-        return (
-          <ListItemButton key={index} onClick={() => this.handleItemDelete(index)}>
-            <ListItemText primary={item} />
-          </ListItemButton>
-        )
-      })
-    }
+
 
     componentDidMount() {
       //ajax request here (default practice)
