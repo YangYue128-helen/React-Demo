@@ -21,7 +21,7 @@ export default (state = defaultState, action) => {
     }
     if (action.type === LOAD_EXISTING_ITEM) {
         const newState = JSON.parse(JSON.stringify(state));
-        newState.list = [...state.list, ...action.value.data];
+        newState.list = action.data;
         return newState;
     }
     if (action.type === DELETE_ITEM) {

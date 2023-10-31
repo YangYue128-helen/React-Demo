@@ -3,9 +3,9 @@ import "../../style/style.css";
 import TodoItem from "./TodoItem";
 
 import store from "../../store";
-import { getInputChangeAction, getAddItemAction, getDeleteItemAction, getLoadItemAction } from "../../store/actionCreators";
+import { getInputChangeAction, getAddItemAction, getDeleteItemAction, getTodoList } from "../../store/actionCreators";
 import TodoListUI from './TodoListUI';
-import axios from "axios";
+
 
 class TodoList extends Component {
     constructor (props) {
@@ -35,20 +35,10 @@ class TodoList extends Component {
       this.setState(store.getState);
     }
 
-
-
     componentDidMount() {
       //ajax request here (default practice)
-      axios.get('https://0c397e32-3dca-4b86-bf49-4d95db72dac6.mock.pstmn.io/api/todolist')
-        .then((res)=>{
-          const action = getLoadItemAction(res);
-          store.dispatch(action);
-          // this.setState((prevState) => {
-          //   return {
-          //     list: [...prevState.list, ...res.data]
-          //   }});
-        })
-        .catch(()=>{alert('error')})
+      const action = getTodoList();
+      store.dispatch(action);
     }
 
 		getTodoItem() {
