@@ -8,6 +8,7 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import store from "../../store";
+import { getInputChangeAction, getAddItemAction, getDeleteItemAction, getLoadItemAction } from "../../store/actionCreators";
 import axios from "axios";
 
 class TodoList extends Component {
@@ -79,10 +80,7 @@ class TodoList extends Component {
       //ajax request here (default practice)
       axios.get('https://0c397e32-3dca-4b86-bf49-4d95db72dac6.mock.pstmn.io/api/todolist')
         .then((res)=>{
-          const action = {
-            type: 'load_existing_item',
-            value: res
-          }
+          const action = getLoadItemAction(res);
           store.dispatch(action);
           // this.setState((prevState) => {
           //   return {
@@ -107,17 +105,12 @@ class TodoList extends Component {
 
     handleInputChange(e) {
 			// console.log(this.input); /* this.input指向真实的DOM节点*/
-      const action = {
-        type: 'change_input_value',
-        value: e.target.value
-      }
+      const action = getInputChangeAction(e.target.value);
       store.dispatch(action);
     }
 
     handleClick() {
-      const action = {
-        type: 'add_todo_item'
-      };
+      const action = getAddItemAction();
       store.dispatch(action);
 			// this.setState((prevState) => (
 			// 	{
@@ -129,10 +122,7 @@ class TodoList extends Component {
     }
 
     handleItemDelete(index) {
-      const action = {
-        type: 'delete_item',
-        index: index
-      }
+      const action = getDeleteItemAction(index);
       store.dispatch(action);
 				// this.setState((prevState) => {
 				// 	const list = [...prevState.list];
