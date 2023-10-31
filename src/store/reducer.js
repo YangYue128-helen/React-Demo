@@ -2,12 +2,12 @@
 import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_ITEM, LOAD_EXISTING_ITEM} from "./actionTypes";
 
 const defaultState = {
-    inputValue: '',
+    inputValue: 'hello world',
     list: []
 }
 
 //reducer can receive the state but cannot change state
-export default (state = defaultState, action) => {
+export default (state=defaultState, action) => {
     if (action.type === CHANGE_INPUT_VALUE) {
         const newState = JSON.parse(JSON.stringify(state));
         newState.inputValue = action.value;

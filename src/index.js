@@ -6,13 +6,17 @@ import Clock from './Clock';
 import reportWebVitals from './reportWebVitals';
 import OpeniiotBox from './components/OpeniiotBox';
 import Navbar from './components/Navbar';
+import { Provider } from 'react-redux';
+import store from "./store";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Navbar/>
-    <OpeniiotBox/>
-    <TodoList/>
+    <Provider store={store}> 
+      <Navbar/>
+      <OpeniiotBox/>
+      <TodoList/>
+    </Provider>
   </React.StrictMode>
 );
 
